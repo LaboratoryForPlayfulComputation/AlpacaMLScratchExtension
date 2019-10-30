@@ -10,3 +10,10 @@ A custom Scratch 3.0 extension to control sprites with AlpacaML gestures
 4. `npm start`
 5. Navigate to http://0.0.0.0:8601/ (works best in Chrome)
 6. Add the AlpacaML Extension to your project
+
+## Connecting to the signaling server
+The web socket URL of the signaling server is hardcoded in this code base. Once you know your URL, set it in line 16 of `scratch-gui/node_modules/scratch-vm/src/extensions/scratch3_alpacaml/index.js`.
+
+For example:
+`this.socket = new WebSocket('ws://10.201.45.10:8080');`
+
