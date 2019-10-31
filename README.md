@@ -5,11 +5,12 @@ A custom Scratch 3.0 server with an extension to control sprites with AlpacaML g
 
 ## How to use
 1. `git clone https://github.com/LaboratoryForPlayfulComputation/AlpacaMLScratchExtension.git`
-2. `cd AlpacaMLScratchExtension/scratch-gui/`
-3. `npm install`
-4. `npm start`
-5. Navigate to http://0.0.0.0:8601/ (works best in Chrome)
-6. Add the AlpacaML Extension to your project
+2. Change the signaling server URL (see "Connecting to the signaling server" below)
+3. `cd AlpacaMLScratchExtension/scratch-gui/`
+4. `npm install`
+5. `npm start --no-inline`
+6. Navigate to http://0.0.0.0:8601/ (works best in Chrome)
+7. Add the AlpacaML Extension to your Scratch project
 
 ## Connecting to the signaling server
 The web socket URL of the signaling server is hardcoded in this code base. Once you know your URL, set it in line 16 of `scratch-gui/node_modules/scratch-vm/src/extensions/scratch3_alpacaml/index.js`.
