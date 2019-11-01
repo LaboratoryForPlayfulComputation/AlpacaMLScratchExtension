@@ -33,7 +33,7 @@ The codebase for the version of AlpacaML that can connect to Scratch is currentl
 1. Open that branch in Xcode
 2. Configure AlpacaML for your signaling server:
    - The WebSocket URL of the signaling server is hardcoded in the app
-   - Replace the URL in line 12 of `LPC Wearable Toolkit/Config.swift` with the URL printed by your signaling server (the same one you put in the extension earlier)
+   - Replace the URL in line 12 of `LPC Wearable Toolkit/Config.swift` with the URL printed by your signaling server (the same URL you put in the extension earlier)
    - For example: `fileprivate let defaultSignalingServerUrl = URL(string: "ws://192.168.0.11:8080")! //personal server`
 3. Run the AlpacaML app
 
