@@ -28,15 +28,20 @@ You will need that URL soon.
 8. Add the AlpacaML Extension to your Scratch project by clicking the "Add Extension" button in the lower left corner
 
 ### Set up AlpacaML
-The codebase that can connect AlpacaML to Scratch is currently in a feature branch, here: https://github.com/LaboratoryForPlayfulComputation/AlpacaML/tree/ShawnMessageSending
+The codebase for the version of AlpacaML that can connect to Scratch is currently in a feature branch, here: https://github.com/LaboratoryForPlayfulComputation/AlpacaML/tree/ShawnMessageSending
 
-1. Open that branch's project in Xcode
+1. Open that branch in Xcode
 2. Configure AlpacaML for your signaling server
    - The WebSocket URL of the signaling server is hardcoded in the app
    - Replace the URL in line 12 of `LPC Wearable Toolkit/Config.swift` with the URL printed by your signaling server (the same one you put in the extension earlier)
    - For example: `fileprivate let defaultSignalingServerUrl = URL(string: "ws://192.168.0.11:8080")! //personal server`
 3. Run the AlpacaML app
 
-
+### Connect AlpacaML and Scratch
+1. In AlpacaML, tap "Connect to a WebRTC device" 
+   - The "Signaling Status" should show a green "Connected"
+2. In Scratch, click the "Connect to AlpacaML" block
+3. In AlpacaML, tap "Send answer"
+4. You will see a message saying "Hi from Scratch!" which confirms the WebRTC connection has been established
 
 
