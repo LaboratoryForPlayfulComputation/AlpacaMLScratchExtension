@@ -17,7 +17,7 @@ You will need that URL soon.
 ### Set up the Scratch server
 1. Download the source code for the Scratch server at: https://drive.google.com/file/d/18_Jm6u0LArYsIBWWuor2HRQBtb4_f6eZ/view?usp=sharing
 2. Extract the downloaded file, which gives you a folder called "scratch-gui"
-3. Configure the AlpacaML extension for your signaling server
+3. Configure the AlpacaML extension for your signaling server:
    - The WebSocket URL of the signaling server is hardcoded in the extension
    - Replace the URL in line 16 of `scratch-gui/node_modules/scratch-vm/src/extensions/scratch3_alpacaml/index.js` with the URL printed by your signaling server
    - For example: `this.socket = new WebSocket('ws://192.168.0.11:8080');`
@@ -31,7 +31,7 @@ You will need that URL soon.
 The codebase for the version of AlpacaML that can connect to Scratch is currently in a feature branch, here: https://github.com/LaboratoryForPlayfulComputation/AlpacaML/tree/ShawnMessageSending
 
 1. Open that branch in Xcode
-2. Configure AlpacaML for your signaling server
+2. Configure AlpacaML for your signaling server:
    - The WebSocket URL of the signaling server is hardcoded in the app
    - Replace the URL in line 12 of `LPC Wearable Toolkit/Config.swift` with the URL printed by your signaling server (the same one you put in the extension earlier)
    - For example: `fileprivate let defaultSignalingServerUrl = URL(string: "ws://192.168.0.11:8080")! //personal server`
