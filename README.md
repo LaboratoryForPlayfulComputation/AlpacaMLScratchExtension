@@ -42,6 +42,6 @@ The codebase for the version of AlpacaML that can connect to Scratch is currentl
    - The "Signaling Status" should show a green "Connected"
 2. In Scratch, click the "Connect to AlpacaML" block
 3. In AlpacaML, tap "Send answer"
-4. You will see a message saying "Hi from Scratch!" which confirms the WebRTC connection has been established
+4. You will see the message "Hi from Scratch!" which confirms the WebRTC connection has been established
 
 
