@@ -28,9 +28,9 @@ You will need that URL soon.
 8. Add the AlpacaML Extension to your Scratch project by clicking the "Add Extension" button in the lower left corner
 
 ### Set up AlpacaML
-The codebase for the version of AlpacaML that can connect to Scratch is currently in a feature branch, here: https://github.com/LaboratoryForPlayfulComputation/AlpacaML/tree/ShawnMessageSending
+The AlpacaML codebase is hosted on GitHub, here: https://github.com/LaboratoryForPlayfulComputation/AlpacaML
 
-1. Open that branch in Xcode
+1. Open that project in Xcode
 2. Configure AlpacaML for your signaling server:
    - The WebSocket URL of the signaling server is hardcoded in the app
    - Replace the URL in line 12 of `LPC Wearable Toolkit/Config.swift` with the URL printed by your signaling server (the same URL you put in the extension earlier)
