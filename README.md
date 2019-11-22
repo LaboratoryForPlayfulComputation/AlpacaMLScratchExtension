@@ -5,7 +5,9 @@ A custom Scratch 3.0 server with an extension to control sprites with AlpacaML g
 
 ## How to use
 
-### Set up the signaling server
+### Set up your own signaling server _(Optional)_
+You may choose not to use your own signaling server and instead use the internet-facing server at `ws://scratchpaca.playfulcomputation.group:1230` which comes hardcoded. If that server is down, follow the steps below. 
+
 1. `git clone https://github.com/LaboratoryForPlayfulComputation/AlpacaMLScratchExtension.git`
 2. `cd AlpacaMLScratchExtension/signaling/`
 3. `npm install`
@@ -32,9 +34,10 @@ You will need that URL soon.
 The AlpacaML codebase is hosted on GitHub, here: https://github.com/LaboratoryForPlayfulComputation/AlpacaML
 
 1. Open that project in Xcode
-2. Configure AlpacaML for your signaling server:
+2. Configure AlpacaML for your signaling server _(Optional)_:
    - The WebSocket URL of the signaling server is hardcoded in the app
-   - Replace the URL in line 12 of `LPC Wearable Toolkit/Config.swift` with the URL printed by your signaling server (the same URL you put in the extension earlier)
+   - `ws://scratchpaca.playfulcomputation.group:1230` connects to the internet-facing server
+   - If that server is down, replace the URL in line 12 of `LPC Wearable Toolkit/Config.swift` with the URL printed by your personal signaling server
    - For example: `fileprivate let defaultSignalingServerUrl = URL(string: "ws://192.168.0.11:8080")! //personal server`
 3. Run the AlpacaML app
 
