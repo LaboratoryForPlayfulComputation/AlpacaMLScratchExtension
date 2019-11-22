@@ -17,11 +17,11 @@ You will need that URL soon.
 ### Set up the Scratch server
 1. Download the source code for the Scratch server at: https://drive.google.com/file/d/18_Jm6u0LArYsIBWWuor2HRQBtb4_f6eZ/view?usp=sharing
 2. Extract the downloaded file, which gives you a folder called "scratch-gui"
-3. Configure the AlpacaML extension for your signaling server:
+3. _(Optional)_ Configure the AlpacaML extension for your personal signaling server:
    - The WebSocket URL of the signaling server is hardcoded in the extension
-   - Replace the URL in line 16 of `scratch-gui/node_modules/scratch-vm/src/extensions/scratch3_alpacaml/index.js` with the URL printed by your signaling server
+   - `this.socket = new WebSocket('ws://scratchpaca.playfulcomputation.group:1230');` will connect to an internet-facing server (assuming it is running), _avoiding the need to run your own signaling server_
+   - **Alternatively:** Replace the URL in line 16 of `scratch-gui/node_modules/scratch-vm/src/extensions/scratch3_alpacaml/index.js` with the URL printed by your signaling server
    - For example: `this.socket = new WebSocket('ws://192.168.0.11:8080');`
-   - Alternatively: `this.socket = new WebSocket('ws://scratchpaca.playfulcomputation.group:1230');` will connect to an internet-facing server (assuming it is running), _avoiding the need to run your own signaling server_
 4. `cd scratch-gui/`
 5. `npm install`
 6. `npm start --no-inline`
