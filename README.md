@@ -21,7 +21,7 @@ You will need that URL soon.
 2. Extract the downloaded file, which gives you a folder called "scratch-gui"
 3. _(Optional)_ Configure the AlpacaML extension for your personal signaling server:
    - The WebSocket URL of the signaling server is hardcoded in the extension
-   - `this.socket = new WebSocket('ws://scratchpaca.playfulcomputation.group:1230');` will connect to an internet-facing server (assuming it is running), _avoiding the need to run your own signaling server_
+   - [TEMPORARILY DEPRECATED] `this.socket = new WebSocket('ws://scratchpaca.playfulcomputation.group:1230');` will connect to an internet-facing server (assuming it is running), _avoiding the need to run your own signaling server_
    - **Alternatively:** Replace the URL in line 16 of `scratch-gui/node_modules/scratch-vm/src/extensions/scratch3_alpacaml/index.js` with the URL printed by your signaling server
    - For example: `this.socket = new WebSocket('ws://192.168.0.11:8080');`
 4. `cd scratch-gui/`
