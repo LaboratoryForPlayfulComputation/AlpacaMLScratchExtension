@@ -10,10 +10,13 @@ class Scratch3AlpacaMLBlocks {
   constructor (runtime) {
     this.runtime = runtime;
     this.matchMsg = 'un71k37y';
+    this.matchMsg2 = 'un71k37y';
 
     //----------WebRTC stuff-----------------------------------------------
 
-    this.socket = new WebSocket('ws://10.201.45.10:8080'); //Change this to the URL of your signaling server
+    //this.socket = new WebSocket('ws://localhost:8080'); //Change this to the URL of your signaling server
+    var URL = 'ws://192.168.0.18:8080' //This internet-facing server may work
+    this.socket = new WebSocket(URL);
     this.decoder = new TextDecoder("utf-8");
     var _this = this;
 
@@ -46,12 +49,12 @@ class Scratch3AlpacaMLBlocks {
 
     this.socket.onmessage = function(event) {
       const reader = new FileReader();
-
+      console.log("Message received, onmessage fired.");
       // This fires after the blob has been read/loaded.
       reader.addEventListener('loadend', (e) => {
         const messageStr = e.srcElement.result;
         const message = JSON.parse(messageStr);
-
+        console.log(message);
         if (message.type == 'SessionDescription') {
             _this.localConnection.setRemoteDescription(new RTCSessionDescription(message.payload));   
         } else if (message.type == 'IceCandidate') {
@@ -69,6 +72,18 @@ class Scratch3AlpacaMLBlocks {
       reader.readAsText(event.data);
     };
 
+    this.socket.onclose = function(){
+      // Try to reconnect in 5 seconds
+      setTimeout(function(){ 
+        try {
+          this.socket = new WebSocket(URL); 
+        }
+        catch(error) {
+          console.log('Connection to signaling server lost. Could not reconnect.');
+        }
+      }, 10000);
+    };
+
     //-----------------------------------------------------------------------
   }
 
@@ -81,7 +96,24 @@ class Scratch3AlpacaMLBlocks {
         {
           opcode: 'connectToAlpaca',
           blockType: BlockType.COMMAND,
-          text: "Connect To AlpacaML"
+          text: "Connect To AlpacaML [PAIRID]",
+          arguments: {
+            PAIRID: {
+              type: ArgumentType.STRING,
+              defaultValue: ''
+            }
+          }
+        },
+        {
+          opcode: 'whenReceivedBoolean',
+          text: "Received: [MESSAGE]",
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            MESSAGE: {
+              type: ArgumentType.STRING,
+              defaultValue: ''
+            }
+          }
         },
         {
           opcode: 'whenReceivedHat',
@@ -99,16 +131,10 @@ class Scratch3AlpacaMLBlocks {
   }
 
   //ASSUME THE APP WILL CRASH. PUT ALL CONNECITON OFFER LOGIC HERE.
-  connectToAlpaca() {
+  connectToAlpaca(args) {
     console.log("Connect To AlpacaML clicked.");
     
-    this.localConnection.createOffer()
-        .then(offer => {
-          this.localConnection.setLocalDescription(offer);
-          var sdp = makeSDPString(this.localConnection.localDescription.type, this.localConnection.localDescription.sdp);
-          this.socket.send(sdp); 
-        });
-      
+    // not sure if do 
     this.localConnection.onicecandidate = event => {
       if (event.candidate) {
         var iceCandidate = makeCandidateString(event.candidate.candidate, event.candidate.sdpMLineIndex, event.candidate.sdpMid);
@@ -116,8 +142,15 @@ class Scratch3AlpacaMLBlocks {
       }
     };
 
+    this.localConnection.createOffer()
+        .then(offer => {
+          this.localConnection.setLocalDescription(offer);
+          var sdp = makeSDPString(this.localConnection.localDescription.type, this.localConnection.localDescription.sdp, args.PAIRID);
+          this.socket.send(sdp); 
+        });
+
     function makeSDPString(type, sdp) {
-      return '{"payload": {"type": "' + type + '", "sdp": "' + sdp.replace(/(?:\r\n|\r|\n)/g, '\\n') + '"}, "type": "SessionDescription"}';
+      return '{"payload": {"type": "' + type + '", "sdp": "' + sdp.replace(/(?:\r\n|\r|\n)/g, '\\n') + '", "pairId":"' + args.PAIRID + '"}, "type": "SessionDescription"}';
     }
 
     function makeCandidateString(sdp, sdpMlineIndex, sdpMid) {
@@ -126,7 +159,7 @@ class Scratch3AlpacaMLBlocks {
   }
 
   whenReceivedHat(args) {
-    console.log("whenReceivedHat called with argument '" + args.MESSAGE + "'.");
+    //console.log("whenReceivedHat called with argument '" + args.MESSAGE + "'.");
     var _this = this;
 
     this.alpacaDataChannel.onmessage = function(event) {
@@ -140,6 +173,30 @@ class Scratch3AlpacaMLBlocks {
       return true;
     } else {
       return false;
+    }
+
+  }
+
+  whenReceivedBoolean(args) {
+    var _this = this;
+
+    this.alpacaDataChannel.onmessage = function(event) {
+      var msg = _this.decoder.decode(event.data);
+      console.log(msg);
+      _this.matchMsg2 = msg;
+    }
+
+    if (args.MESSAGE === this.matchMsg2) {
+      resetMatchMsg2(100); //100 means this block will return true for a tenth of a second
+      return true;
+    } else {
+      return false;
+    }
+
+    function resetMatchMsg2(time) {
+      setTimeout(function(){ 
+        _this.matchMsg2 = 'un71k37y';
+      }, time);
     }
 
   }
